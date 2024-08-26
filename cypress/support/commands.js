@@ -23,3 +23,33 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('openHomePage', () => {
+  cy.visit('/')
+})
+
+Cypress.Commands.add('login', () => {
+  cy.setCookie('todoistd', '/0NO0CW9wfc+/UM1fwwZXBYxC98=?pCHK=gASVJAAAAAAAAACMIGViZDFmZmU2OGE3ZjRjZjJiODY1NTg4ODc0OTFmZmJklC4=&user_id=gASVBgAAAAAAAABKZiwBAy4=')
+  cy.visit('/')
+})
+
+Cypress.Commands.add('createProjectAPI', (projectData) => {
+  cy.request({
+    method: 'POST',
+    url: 'https://api.todoist.com/rest/v2/projects',
+    body: projectData,
+    headers: {
+      'Authorization': 'Bearer ' + Cypress.env("apiKey"),
+    },
+  })
+})
+
+Cypress.Commands.add('deleteProjectAPI', (projectId) => {
+  cy.request({
+    method: 'DELETE',
+    url: `https://api.todoist.com/rest/v2/projects/${projectId}`,
+    headers: {
+      'Authorization': 'Bearer ' + Cypress.env("apiKey"),
+    }
+  })
+})
