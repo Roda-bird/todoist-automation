@@ -46,17 +46,22 @@ describe('Scenario 1: Validate “Create Project” functionality:', () => {
     })
   })
 
-  describe('Negative Test: Create and Verify Project', () => {
+  describe('Negative Test: Create a Project Without Authentication', () => {
 
-    it('should not allow creating a project with an empty name', () => {
+    it('should not create a project without authentication', () => {
 
-      cy.createProjectAPI({ name: '' }).then((response) => {
-        expect(response.status).to.equal(400)
-      })
+      cy.request({
+        method: 'POST',
+        url: 'https://api.todoist.com/rest/v2/projects',
+        body: { name: 'Unauthorized Project' },
+        failOnStatusCode: false
+      }).then((response) => {
+        expect(response.status).to.equal(401)
+      });
   
       cy.visit('https://todoist.com/app/projects')
-      cy.contains('').should('not.exist')
-
+      cy.contains('Unauthorized Project').should('not.exist')
     })
   })
+  
 })
