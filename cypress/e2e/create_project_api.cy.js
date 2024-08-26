@@ -1,62 +1,62 @@
-describe('Create Project via API', () => {
+describe('Scenario 1: Validate “Create Project” functionality:', () => {
 
-  it('should create a new project', () => {
+  const projectName = 'Test Project'
+  const maxNameLength = 120
+  const longestName = 'X'.repeat(maxNameLength)
 
-    cy.request({
-      method: 'POST',
-      url: 'https://api.todoist.com/rest/v2/projects',
-      headers: {
-        'Authorization': 'Bearer ' + Cypress.env("apiKey"),
-      },
-      body: {
-        name: 'Test Project'
-      }
-    }).then((response) => {
-      expect(response.status).to.equal(200)
-      expect(response.body.name).to.equal('Test Project')
-      cy.wrap(response.body.id).as('projectId')
+  let projectId
+
+  beforeEach(() => {
+    cy.login()
+  })
+
+  afterEach(function () {
+    if (projectId) {
+      cy.deleteProjectAPI(projectId)
+    }
+  })
+
+  describe('Positive Test: Create and Verify Project', () => {
+
+    it('should create a new project and verify it in the UI', () => {
+
+      cy.createProjectAPI({ name: projectName }).then((response) => {
+        expect(response.status).to.equal(200)
+        expect(response.body.name).to.equal(projectName)
+        projectId = response.body.id
+      })
+
+      cy.visit('https://todoist.com/app/projects')
+      cy.contains(projectName).should('be.visible')
     })
-
-  })
-})
-
-describe('Verify Project in UI', () => {
-
-  before(() => {
-    cy.login()
-  });
-
-  it('should display the created project in the UI', () => {
-    
-    cy.visit('https://todoist.com/app/projects')
-    cy.contains('Test Project').should('be.visible')
   })
 
-})
+  describe('Boundary Test: Create and Verify Project', () => {
 
-describe('Create Project Exceeding Name Length Limit', () => {
+    it('should create a project with the maximum allowed name length and verify in the UI', () => {
 
-  before(() => {
-    cy.login()
-  });
+      cy.createProjectAPI({ name: longestName }).then((response) => {
+        expect(response.status).to.equal(200)
+        expect(response.body.name).to.equal(longestName)
+        projectId = response.body.id
+      })
 
-  const maxLength = 120; //This is maximum length for project name on Todoist
-  const projectName = 'A'.repeat(maxLength + 1);
+      cy.visit('https://todoist.com/app/projects')
+      cy.contains(longestName).should('be.visible')
+    })
+  })
+
+  describe('Negative Test: Create and Verify Project', () => {
+
+    it('should not allow creating a project with an empty name', () => {
+
+      cy.createProjectAPI({ name: '' }).then((response) => {
+        expect(response.status).to.equal(400)
+      })
   
-  it('should not create a project with a name exceeding the length limit', () => {
-    cy.request({
-      method: 'POST',
-      url: 'https://api.todoist.com/rest/v2/projects',
-      headers: {
-        'Authorization': 'Bearer ' + Cypress.env("apiKey"),
-      },
-      body: {
-        name: projectName
-      },
-      failOnStatusCode: false // Prevent Cypress from failing the test automatically
-    }).then((response) => {
-      expect(response.status).to.not.equal(200)
-      expect(response.body).to.have.property('error')
+      cy.visit('https://todoist.com/app/projects')
+      cy.contains('').should('not.exist')
+
     })
   })
 })
