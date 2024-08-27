@@ -11,6 +11,7 @@ The purpose of this project is to validate the following functionalities of the 
 3. **Create Task via API and Verify on Web**  
 
 These tests are designed to be scalable, maintainable, and easy to extend with new scenarios. They include positive, negative, and boundary condition tests.
+Three cases were created for each scenario, as instructed, positive, negative and boundary.
 
 ## **🔧 Setup & Installation**
 
@@ -103,6 +104,7 @@ You can then choose the browser and the test you wod want to run in the Cypress 
 
 - Positive Test: Create a new task in a test project via the web application and verify its creation using the API.
 - Negative Test: Attempt to Create Task with Only Whitespace.
+- Boundary Test: Create Task with Maximum Name Length.
 
 ### **Scenario 3: Validate “Create Task via API”**
 
@@ -172,3 +174,5 @@ There was also an app error not connected to my tests, so I added **this** to **
 I also separated 1 scenario branch & created 1 pull request to merge it to main as instructed.
 
 **Todoist only allows 5 projects per free user, so I set tasks and projects to auto-delete after test execution so that tests could be redoable**
+
+For each user, you can make a maximum of 1000 API requests on Todoist within a 15 minute period: https://developer.todoist.com/rest/v2/#request-limits
