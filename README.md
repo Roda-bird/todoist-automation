@@ -169,3 +169,5 @@ There was also an app error not connected to my tests, so I added **this** to **
   ```
 
 I also separated 1 scenario branch & created 1 pull request to merge it to main as instructed.
+
+**Todoist only allows 5 projects per free user, so I set tasks and projects to auto-delete after test execution so that tests could be redoable**
