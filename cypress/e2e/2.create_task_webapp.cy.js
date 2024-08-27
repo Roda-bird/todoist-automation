@@ -1,8 +1,6 @@
 describe('Scenario 2: Validate “Create Task via web application”', () => {
 
   const projectName = 'Test Project'
-  const maxTaskNameLength = 500
-  const longestTaskName = 'X'.repeat(maxTaskNameLength)
   const taskName = 'Test Task'
   let projectId
   let taskId
@@ -14,6 +12,8 @@ describe('Scenario 2: Validate “Create Task via web application”', () => {
       expect(response.status).to.equal(200)
       projectId = response.body.id
     })
+    
+
   })
 
   afterEach(function () {
@@ -29,11 +29,13 @@ describe('Scenario 2: Validate “Create Task via web application”', () => {
 
     it('should create a new task in the test project via web application and verify it using API', () => {
 
-      cy.get('#content').contains(projectName).click()
+      cy.visit(`https://todoist.com/app/project/test-project-${projectId}`)
+      cy.wait(2000)
       cy.get('.plus_add_button').click()
       cy.get('.task_editor__content_field .is-empty').type(taskName)
-      cy.get('[data-testid="task-editor-submit-button"]').click()
-      cy.get('[data-testid="project-list-view"]').contains(taskName).should('be.visible')
+      cy.wait(2000)
+      cy.get('button[data-testid="task-editor-submit-button"]').should('be.visible').scrollIntoView().click()
+      cy.get('.task_content').contains(taskName).should('be.visible')
 
       cy.request({
         method: 'GET',

@@ -91,8 +91,9 @@ describe('Scenario 3: Validate  “Create Task via API”', () => {
         },
         failOnStatusCode: false
       }).then((response) => {
-        expect(response.status).to.equal(401);
-      });
+        expect(response.status).to.equal(401)
+      })
+      cy.wait(1000)
 
       cy.visit(`https://todoist.com/app/projects/${projectId}`)
       cy.contains(taskName).should('not.exist')
