@@ -1,6 +1,6 @@
-# **Lodgify Junior Automation QA Challenge - Todoist Automation Testing**
+# **Junior Automation QA Challenge - Todoist Automation Testing**
 
-Welcome to the repository for the Lodgify Junior Automation QA Challenge. This project contains automated test scenarios for the Todoist web application, built using the Cypress framework. The test scenarios cover various functionalities of the Todoist application, including creating projects and tasks via both API and web UI.
+Welcome to the repository for my Junior Automation QA Challenge. This project contains automated test scenarios for the Todoist web application, built using the Cypress framework. The test scenarios cover various functionalities of the Todoist application, including creating projects and tasks via both API and web UI.
 
 ## **📋 Project Overview**
 
@@ -18,37 +18,43 @@ These tests are designed to be scalable, maintainable, and easy to extend with n
 
 Before you can run the tests, make sure you have the following installed:
 
-  - [Node.js](https://nodejs.org/)
-  - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-  - Cypress
+  - [Node.js](https://nodejs.org/) - can be installed on their website
+  - [npm](https://www.npmjs.com/)
+  - [Cypress](https://www.cypress.io/)
 
 1. **Clone the repository:**
 
-   ```bash
+To clone the repository, type this into your terminal:
+
+   ```
    git clone https://github.com/yourusername/lodgify-qa-challenge.git
    cd lodgify-qa-challenge
    ```
-2. **Install dependencies:**
+Or, download the code manually.
 
-    To install node type:
+3. **Install dependencies:**
+
+    To install node type this into terminal:
   
-    ```bash
+    ```
     npm install
-     ```
-    To install Cypres type:
-    ```bash
+    ```
+    To install Cypres type this into terminal::
+   
+    ```
     npm install cypress
-     ```
+    ```
    
 ## **📝Configuration**
-1. I set my API key in **/cypress.config.js** to env:
+
+1. I added my API key to **/cypress.config.js** to env:
 
   ```
   env: {
     apiKey: 'MY_API_KEY'
   },
   ```
-2. Other important settings contain my **defaultCommandTimeout** which i set to 10000 and **viewportWidth/Height** which i set to 1920x1080:
+2. Other important settings contain my **defaultCommandTimeout** which i set to **10000** and **viewportWidth/Height** which i set to **1920x1080**:
   
   ```
   e2e: {
@@ -58,7 +64,7 @@ Before you can run the tests, make sure you have the following installed:
     viewportHeight: 1080,
   }
   ```
-3. Added the necessary cookies for authentication in the login command located along with other important comands  in: **cypress/support/commands.js**
+3. I Added the necessary cookies for authentication in the login command located along with other important comands  in: **cypress/support/commands.js**
    
 ## **🚀 Running the Tests**
 
@@ -74,15 +80,17 @@ To run all the test scenarios in headless mode using the Chrome browser, type:
 You can also run a specific test by specifying the test file, for example:
 
   ```
-  npx cypress run --spec "cypress\e2e\1.create_project_api.cy.js"
+  npx cypress run --browser chrome --spec "cypress\e2e\1.create_project_api.cy.js"
   ```
 ### **Run Tests in Cypress UI:**
 
-To open the Cypress test runner and run tests interactively:
+To open the Cypress test runner and run tests interactively type:
 
   ```
   npx cypress open
   ```
+You can then choose the browser and the test you wod want to run in the Cypress test runner UI.
+
 ## **📜 Test Scenarios**
 
 ### **Scenario 1: Validate “Create Project” functionality**
@@ -114,12 +122,12 @@ Several custom Cypress commands have been added to simplify API interactions:
 
 ### **📈 Reporting**
 
-The test suite uses the Mochawesome Reporter to generate detailed reports:
+The test suite can use the **Mochawesome** Reporter to generate detailed reports:
 
-- HTML Report: The report is saved in the cypress/reports directory.
-- Screenshots: Screenshots of test failures are captured and embedded in the report.
+- **HTML Report:** The report is saved in the cypress/reports directory.
+- **Screenshots:** Screenshots of test failures are captured and embedded in the report.
 
-To generate the report, simply run the tests. The report will be generated automatically.
+To generate the report, simply run the tests. The reports will be generated automatically.
 
 To install Mochawesome Reporter, type:
 
@@ -150,12 +158,14 @@ After that, add your settings to **/cypress.config.js**:
   ```
 ## **📄 Notes**
 
-I decided to use **'todoistd'** cookie for my login command in **cypress\support\commands.js** as that is the only way I found to go around Todoists security measures and sucesfully log in via Cypress.
+I decided to use **'todoistd'** cookie option for my login command in **cypress\support\commands.js** as that is the only way I found to go around Todoists security measures and sucesfully log in via Cypress.
 
-There was also an app error not connected to my tests, so I added this to **cypress\support\e2e.js** to be able to finish them:
+There was also an app error not connected to my tests, so I added **this** to **cypress\support\e2e.js** to be able to finish them:
 
   ```
   Cypress.on('uncaught:exception', (err, runnable) => {
   return false
   })
   ```
+
+I also separated 1 scenario branch & created 1 pull request to merge it to main as instructed.
