@@ -8,10 +8,12 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: 'https://app.todoist.com/app/projects/active',
     chromeWebSecurity: false,
-
+    defaultCommandTimeout: 10000,
+    viewportWidth: 1920,
+    viewportHeight: 1080,
     setupNodeEvents(on, config) {
-      require('cypress-mochawesome-reporter/plugin')(on);
-      return config;
+      require('cypress-mochawesome-reporter/plugin')(on)
+      return config
     },
     reporter: 'cypress-mochawesome-reporter',
     reporterOptions: {
@@ -23,9 +25,6 @@ module.exports = defineConfig({
       reportPageTitle: 'Test Report',
       embeddedScreenshots: true,
       inlineAssets: true
-    },
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
     },
   },
 });

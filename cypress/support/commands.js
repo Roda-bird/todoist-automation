@@ -53,3 +53,37 @@ Cypress.Commands.add('deleteProjectAPI', (projectId) => {
     }
   })
 })
+
+Cypress.Commands.add('createTaskAPI', (task) => {
+  cy.request({
+    method: 'POST',
+    url: 'https://api.todoist.com/rest/v2/tasks',
+    headers: {
+      'Authorization': 'Bearer ' + Cypress.env("apiKey"),
+    },
+    body: task
+  })
+})
+
+Cypress.Commands.add('deleteTaskAPI', (taskId) => {
+  cy.request({
+    method: 'DELETE',
+    url: `https://api.todoist.com/rest/v2/tasks/${taskId}`,
+    headers: {
+      'Authorization': 'Bearer ' + Cypress.env("apiKey"),
+    }
+  })
+})
+
+Cypress.Commands.add('getTasksAPI', (projectId) => {
+  cy.request({
+    method: 'GET',
+    url: `https://api.todoist.com/rest/v2/tasks`,
+    headers: {
+      'Authorization': 'Bearer ' + Cypress.env("apiKey"),
+    },
+    qs: {
+      project_id: projectId
+    }
+  })
+})

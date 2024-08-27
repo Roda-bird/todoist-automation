@@ -15,5 +15,8 @@
     "mochawesome-merge": "^4.3.0",
     "mochawesome-report-generator": "^6.2.0"
   },
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "cypress-wait-until": "^3.0.2"
+  }
 }
