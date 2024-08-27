@@ -102,6 +102,7 @@ You can then choose the browser and the test you wod want to run in the Cypress 
 ### **Scenario 2: Validate “Create Task via Web Application”**
 
 - Positive Test: Create a new task in a test project via the web application and verify its creation using the API.
+- Negative Test: Attempt to Create Task with Only Whitespace.
 
 ### **Scenario 3: Validate “Create Task via API”**
 
