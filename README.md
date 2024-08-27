@@ -120,7 +120,7 @@ Several custom Cypress commands have been added to simplify API interactions:
 - cy.deleteTaskAPI(taskId) - Deletes a task via API.
 - cy.getTasksAPI(projectId) - Retrieves tasks for a specific project via API.
 
-### **📈 Reporting**
+## **📈 Reporting**
 
 The test suite can use the **Mochawesome** Reporter to generate detailed reports:
 
