@@ -100,3 +100,62 @@ To open the Cypress test runner and run tests interactively:
 - Positive Test: Create a task via API and verify its visibility on the web application.
 - Boundary Test: Create a task with the maximum allowed name length via API and verify its visibility.
 - Negative Test: Attempt to create a task without authentication and verify it is not created.
+
+## **🛠️ Custom Commands**
+
+Several custom Cypress commands have been added to simplify API interactions:
+
+- cy.login() - Handles user login by setting necessary cookies.
+- cy.createProjectAPI(projectData) - Creates a new project via API.
+- cy.deleteProjectAPI(projectId) - Deletes a project via API.
+- cy.createTaskAPI(taskData) - Creates a new task via API.
+- cy.deleteTaskAPI(taskId) - Deletes a task via API.
+- cy.getTasksAPI(projectId) - Retrieves tasks for a specific project via API.
+
+### **📈 Reporting**
+
+The test suite uses the Mochawesome Reporter to generate detailed reports:
+
+- HTML Report: The report is saved in the cypress/reports directory.
+- Screenshots: Screenshots of test failures are captured and embedded in the report.
+
+To generate the report, simply run the tests. The report will be generated automatically.
+
+To install Mochawesome Reporter, type:
+
+  ```
+  npm install --save-dev mochawesome
+  ```
+After that, add your settings to **/cypress.config.js**:
+  ```
+  e2e: {
+
+    setupNodeEvents(on, config) {
+      require('cypress-mochawesome-reporter/plugin')(on)
+      return config
+    },
+
+    reporter: 'cypress-mochawesome-reporter',
+    reporterOptions: {
+      reportDir: 'cypress/reports',
+      overwrite: false,
+      html: true,
+      json: true,
+      charts: true,
+      reportPageTitle: 'Test Report',
+      embeddedScreenshots: true,
+      inlineAssets: true
+    },
+  },
+  ```
+## **📄 Notes**
+
+I decided to use **'todoistd'** cookie for my login command in **cypress\support\commands.js** as that is the only way I found to go around Todoists security measures and sucesfully log in via Cypress.
+
+There was also an app error not connected to my tests, so I added this to **cypress\support\e2e.js** to be able to finish them:
+
+  ```
+  Cypress.on('uncaught:exception', (err, runnable) => {
+  return false
+  })
+  ```
