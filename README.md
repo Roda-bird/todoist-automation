@@ -1,4 +1,4 @@
-# **Junior Automation QA Challenge - Todoist Automation Testing**
+# **Automation QA Challenge - Todoist Automation Testing**
 
 Welcome to the repository for my Junior Automation QA Challenge. This project contains automated test scenarios for the Todoist web application, built using the Cypress framework. The test scenarios cover various functionalities of the Todoist application, including creating projects and tasks via both API and web UI.
 
